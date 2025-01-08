@@ -24,7 +24,7 @@ const loadTemplates = () => {
     data.forEach((template) => {
       const option = document.createElement("option");
       option.value = template.content;
-      option.textContent = template.name;
+      option.textContent = template.templateName;
       templateSelect.appendChild(option);
     });
   });

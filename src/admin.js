@@ -20,10 +20,18 @@ const refreshInstructorList = () => {
     instructorList.innerHTML = "";
     data.forEach((instructor) => {
       const li = document.createElement("li");
-      li.textContent = instructor.name;
+      li.className = "flex items-center p-2 ";
+      li.innerHTML = `
+        <span class="flex items-center ml-[-20px]">
+          <span class="mr-2 text-green-500">⛳️</span>
+          ${instructor.name}
+        </span>
+      `;
 
       const deleteBtn = document.createElement("button");
-      deleteBtn.textContent = "삭제";
+      deleteBtn.textContent = "X";
+      deleteBtn.className =
+        "ml-1 px-3 py-1 hover:text-red-500 focus:outline-none";
       deleteBtn.addEventListener("click", () => {
         deleteData("instructors", instructor.id);
         refreshInstructorList();
@@ -78,15 +86,29 @@ const refreshTemplateList = () => {
     templateList.innerHTML = "";
     data.forEach((template) => {
       const li = document.createElement("li");
-      li.textContent = `${template.templateName}: ${template.content}`;
+      li.className =
+        "flex items-center justify-between p-6 shadow ml-[-20px] mb-6";
 
+      // 템플릿 제목과 내용
+      const contentDiv = document.createElement("div");
+      contentDiv.className = "text-left";
+      contentDiv.innerHTML = `
+        <div class="text-sm font-bold text-gray-700">${template.templateName}</div>
+        <div class="text-sm text-gray-600 mt-1">${template.content}</div>
+      `;
+
+      // 삭제 버튼
       const deleteBtn = document.createElement("button");
       deleteBtn.textContent = "삭제";
+      deleteBtn.className =
+        "px-4 py-1 text-sm bg-red-500 text-white rounded shadow hover:bg-red-400 focus:outline-none";
       deleteBtn.addEventListener("click", () => {
         deleteData("templates", template.id);
         refreshTemplateList();
       });
 
+      // li 내부 요소 추가
+      li.appendChild(contentDiv);
       li.appendChild(deleteBtn);
       templateList.appendChild(li);
     });

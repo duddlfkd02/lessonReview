@@ -3,38 +3,88 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/src/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>레슨포인트</title>
   </head>
-  <body>
-    <div class="container">
-      <div>
-        <a href="./admin.html">어드민 페이지</a>
+  <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
+    <!-- 헤더 -->
+    <header class="w-full py-4 px-6 bg-white shadow-md">
+      <div class="flex justify-between items-center max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold text-gray-700">세븐아이언 레슨 포인트</h1>
+        <a
+          href="./admin.html"
+          class="text-gray-500 hover:text-gray-800 underline text-sm"
+        >
+          어드민 페이지
+        </a>
       </div>
-      <h1>세븐아이언 레슨 포인트</h1>
-      <select id="instructorsSelect"></select>
+    </header>
 
-      <!-- 템플릿 드롭다운 메뉴 -->
-      <div>
-        <label for="templateSelect">템플릿 선택 : </label>
-        <select id="templateSelect">
-          <option value="">템플릿을 선택하세요.</option>
-        </select>
-      </div>
+    <!-- 메인 콘텐츠 -->
+    <main class="flex-1 flex justify-center">
+      <section
+        class="w-full max-w-4xl px-6 py-8 bg-white rounded-lg shadow-md mt-8"
+      >
+        <!-- 강사 선택 -->
+        <div class="mb-6">
+          <label
+            for="instructorsSelect"
+            class="block text-sm font-medium text-gray-600"
+            >강사 선택</label
+          >
+          <select
+            id="instructorsSelect"
+            class="w-full mt-2 px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none"
+          ></select>
+        </div>
 
-      <!-- 레슨포인트 입력 -->
-      <textarea
-        id="lessonPoints"
-        placeholder="레슨 포인트를 작성하세요."
-      ></textarea>
+        <!-- 템플릿 선택 -->
+        <div class="mb-6">
+          <label
+            for="templateSelect"
+            class="block text-sm font-medium text-gray-600"
+            >템플릿 선택</label
+          >
+          <select
+            id="templateSelect"
+            class="w-full mt-2 px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none"
+          >
+            <option value="">템플릿을 선택하세요.</option>
+          </select>
+        </div>
 
-      <!-- 실시간 글자수 카운트 -->
-      <p type="text" id="charCount"></p>
+        <!-- 레슨포인트 입력 -->
+        <div class="mb-6">
+          <label
+            for="lessonPoints"
+            class="block text-sm font-medium text-gray-600"
+            >레슨 포인트</label
+          >
+          <textarea
+            id="lessonPoints"
+            placeholder="레슨 포인트를 작성하세요."
+            class="w-full mt-2 h-48 px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none resize-none"
+          ></textarea>
+          <p id="charCount" class="text-sm text-gray-500 mt-1"></p>
+        </div>
 
-      <!-- 복사, 초기화 버튼 -->
-      <button class="copy-btn" id="copyBtn">복사하기</button>
-      <button class="clear-btn" id="clearBtn">내용 초기화</button>
-    </div>
+        <!-- 버튼들 -->
+        <div class="flex justify-end space-x-4">
+          <button
+            id="copyBtn"
+            class="px-6 py-2 bg-orange-500 text-white font-semibold rounded-full shadow-md hover:bg-orange-400 focus:outline-none"
+          >
+            복사하기
+          </button>
+          <button
+            id="clearBtn"
+            class="px-6 py-2 bg-green-500 text-white font-semibold rounded-full shadow-md hover:bg-green-400 focus:outline-none"
+          >
+            내용 초기화
+          </button>
+        </div>
+      </section>
+    </main>
 
     <script type="module" src="./src/index.js"></script>
   </body>
