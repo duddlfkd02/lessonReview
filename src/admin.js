@@ -37,16 +37,40 @@ const refreshInstructorList = () => {
 
 // 템플릿 관리
 const templateList = document.getElementById("templateList");
-const addTemplateBtn = document.getElementById("addTemplateBtn");
 
-addTemplateBtn.addEventListener("click", () => {
-  const templateName = prompt("추가할 템플릿 이름을 입력하세요");
-  const content = prompt("템플릿 내용을 입력하세요");
-  if ((templateName, content)) {
-    addData("templates", { templateName, content });
-    alert("템플릿이 추가되었습니다.");
-    refreshTemplateList();
+const modal = document.getElementById("templateModal");
+const templateNameInput = document.getElementById("templateName");
+const templateContentInput = document.getElementById("templateContent");
+const saveTemplateBtn = document.getElementById("saveTemplateBtn");
+const cancelTemplateBtn = document.getElementById("cancelTemplateBtn");
+
+const openModal = () => {
+  modal.classList.remove("hidden");
+};
+
+const closeModal = () => {
+  modal.classList.add("hidden");
+  templateNameInput.value = "";
+  templateContentInput.value = "";
+};
+
+document.getElementById("addTemplateBtn").addEventListener("click", openModal);
+
+cancelTemplateBtn.addEventListener("click", closeModal);
+
+saveTemplateBtn.addEventListener("click", () => {
+  const templateName = templateNameInput.value.trim();
+  const content = templateContentInput.value.trim();
+
+  if (!templateName || !content) {
+    alert("모든 내용이 입력되었는지 확인해주세요!");
+    return;
   }
+
+  addData("templates", { templateName, content });
+  alert("템플릿이 추가되었습니다.");
+  closeModal();
+  refreshTemplateList();
 });
 
 const refreshTemplateList = () => {

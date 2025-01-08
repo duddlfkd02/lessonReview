@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>어드민 페이지</title>
+    <link rel="stylesheet" href="./src/modal.css" />
   </head>
   <body>
     <h1>어드민 페이지</h1>
@@ -21,6 +22,25 @@
 
     <div>
       <a href="./index.html">돌아가기</a>
+    </div>
+
+    <!-- 템플릿 모달 -->
+    <div id="templateModal" class="modal hidden">
+      <div class="modal-content">
+        <h2>템플릿 추가</h2>
+        <label for="templateName">템플릿 이름</label>
+        <input
+          type="text"
+          id="templateName"
+          placeholder="템플릿 이름을 입력하세요."
+        />
+
+        <label for="templateContent">템플릿 내용</label>
+        <textarea id="templateContent" placeholder="[레슨 포인트]"></textarea>
+
+        <button id="saveTemplateBtn">저장하기</button>
+        <button id="cancelTemplateBtn">취소하기</button>
+      </div>
     </div>
 
     <script type="module" src="./src/admin.js"></script>
