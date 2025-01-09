@@ -4,16 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
     <title>레슨포인트</title>
   </head>
-  <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
+  <body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
     <!-- 헤더 -->
-    <header class="w-full py-4 px-6 bg-white shadow-md">
+    <header class="w-full py-6 px-8 bg-white shadow">
       <div class="flex justify-between items-center max-w-4xl mx-auto">
-        <h1 class="text-2xl font-bold text-gray-700">세븐아이언 레슨 포인트</h1>
+        <h1 class="text-3xl font-extrabold text-gray-900">
+          세븐아이언 레슨 포인트
+        </h1>
         <a
           href="./admin.html"
-          class="text-gray-500 hover:text-gray-800 underline text-sm"
+          class="text-sm font-medium text-gray-600 hover:text-gray-900"
         >
           어드민 페이지
         </a>
@@ -21,66 +27,66 @@
     </header>
 
     <!-- 메인 콘텐츠 -->
-    <main class="flex-1 flex justify-center">
+    <main class="flex-1 flex justify-center py-12">
       <section
-        class="w-full max-w-4xl px-6 py-8 bg-white rounded-lg shadow-md mt-8"
+        class="w-full max-w-4xl px-8 py-10 bg-white rounded-lg shadow-lg"
       >
         <!-- 강사 선택 -->
-        <div class="mb-6">
+        <div class="mb-8">
           <label
             for="instructorsSelect"
-            class="block text-sm font-medium text-gray-600"
+            class="block text-lg font-semibold text-gray-700 mb-2"
             >강사 선택</label
           >
           <select
             id="instructorsSelect"
-            class="w-full mt-2 px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none"
+            class="w-full px-4 py-3 text-base bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400"
           ></select>
         </div>
 
         <!-- 템플릿 선택 -->
-        <div class="mb-6">
+        <div class="mb-8">
           <label
             for="templateSelect"
-            class="block text-sm font-medium text-gray-600"
+            class="block text-lg font-semibold text-gray-700 mb-2"
             >템플릿 선택</label
           >
           <select
             id="templateSelect"
-            class="w-full mt-2 px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none"
+            class="w-full px-4 py-3 text-base bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400"
           >
             <option value="">템플릿을 선택하세요.</option>
           </select>
         </div>
 
         <!-- 레슨포인트 입력 -->
-        <div class="mb-6">
+        <div class="mb-8">
           <label
             for="lessonPoints"
-            class="block text-sm font-medium text-gray-600"
+            class="block text-lg font-semibold text-gray-700 mb-2"
             >레슨 포인트</label
           >
           <textarea
             id="lessonPoints"
             placeholder="레슨 포인트를 작성하세요."
-            class="w-full mt-2 h-48 px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none resize-none"
+            class="w-full h-40 px-4 py-3 text-base bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 resize-none"
           ></textarea>
-          <p id="charCount" class="text-sm text-gray-500 mt-1"></p>
+          <p id="charCount" class="text-sm text-gray-500 mt-2"></p>
         </div>
 
         <!-- 버튼들 -->
         <div class="flex justify-end space-x-4">
           <button
-            id="copyBtn"
-            class="px-6 py-2 bg-orange-500 text-white font-semibold rounded-full shadow-md hover:bg-orange-400 focus:outline-none"
-          >
-            복사하기
-          </button>
-          <button
             id="clearBtn"
-            class="px-6 py-2 bg-green-500 text-white font-semibold rounded-full shadow-md hover:bg-green-400 focus:outline-none"
+            class="px-8 py-3 text-base font-semibold bg-gray-100 border border-gray-300 rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
           >
             내용 초기화
+          </button>
+          <button
+            id="copyBtn"
+            class="px-8 py-3 text-base font-semibold bg-black text-white rounded-full hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500"
+          >
+            복사하기
           </button>
         </div>
       </section>

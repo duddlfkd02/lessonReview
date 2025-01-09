@@ -20,18 +20,26 @@ const refreshInstructorList = () => {
     instructorList.innerHTML = "";
     data.forEach((instructor) => {
       const li = document.createElement("li");
-      li.className = "flex items-center p-2 ";
+      li.className = "flex justify-between items-center p-2 ";
       li.innerHTML = `
-        <span class="flex items-center ml-[-20px]">
+        <span class="flex items-center">
           <span class="mr-2 text-green-500">⛳️</span>
           ${instructor.name}
         </span>
       `;
 
+      // 삭제 버튼
       const deleteBtn = document.createElement("button");
-      deleteBtn.textContent = "X";
-      deleteBtn.className =
-        "ml-1 px-3 py-1 hover:text-red-500 focus:outline-none";
+      deleteBtn.className = "flex items-center p-2 ";
+
+      // 아이콘 생성
+      const icon = document.createElement("i");
+      icon.className = "fa-regular fa-circle-xmark";
+      icon.style.color = "#000000";
+
+      // 아이콘과 텍스트 추가
+      deleteBtn.appendChild(icon);
+
       deleteBtn.addEventListener("click", () => {
         deleteData("instructors", instructor.id);
         refreshInstructorList();
@@ -87,7 +95,7 @@ const refreshTemplateList = () => {
     data.forEach((template) => {
       const li = document.createElement("li");
       li.className =
-        "flex items-center justify-between p-6 shadow ml-[-20px] mb-6";
+        "flex items-center justify-between p-6 mb-6 bg-gray-50  rounded-lg border";
 
       // 템플릿 제목과 내용
       const contentDiv = document.createElement("div");
@@ -99,9 +107,17 @@ const refreshTemplateList = () => {
 
       // 삭제 버튼
       const deleteBtn = document.createElement("button");
-      deleteBtn.textContent = "삭제";
-      deleteBtn.className =
-        "px-4 py-1 text-sm bg-red-500 text-white rounded shadow hover:bg-red-400 focus:outline-none";
+      deleteBtn.className = "flex items-center p-4 ";
+
+      // 아이콘 생성
+      const icon = document.createElement("i");
+      icon.className = "fa-regular fa-circle-xmark";
+      icon.style.color = "#000000";
+
+      // 아이콘과 텍스트 추가
+      deleteBtn.appendChild(icon);
+
+      // 클릭 이벤트 추가
       deleteBtn.addEventListener("click", () => {
         deleteData("templates", template.id);
         refreshTemplateList();
