@@ -3,20 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind 빌드된 CSS -->
+    <link rel="stylesheet" href="./dist/output.css" />
+    <!-- Font CSS -->
+    <link rel="stylesheet" href="./src/style.css" />
+    <!-- FontAwesome 아이콘 -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
       rel="stylesheet"
     />
-    <title>레슨포인트</title>
+    <title>세븐아이언 레슨포인트</title>
   </head>
   <body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
     <!-- 헤더 -->
     <header class="w-full py-6 px-8 bg-white shadow">
-      <div class="flex justify-between items-center max-w-4xl mx-auto">
-        <h1 class="text-3xl font-extrabold text-gray-900">
-          세븐아이언 레슨 포인트
-        </h1>
+      <div
+        class="flex font-black justify-between items-center max-w-4xl mx-auto"
+      >
+        <h1 class="text-3xl text-gray-900">세븐아이언 레슨포인트</h1>
         <a
           href="./admin.html"
           class="text-sm font-medium text-gray-600 hover:text-gray-900"
@@ -36,7 +40,7 @@
           <label
             for="instructorsSelect"
             class="block text-lg font-semibold text-gray-700 mb-2"
-            >강사 선택</label
+            >프로 선택</label
           >
           <select
             id="instructorsSelect"

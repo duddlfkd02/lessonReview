@@ -107,7 +107,7 @@ const refreshTemplateList = () => {
 
       // 삭제 버튼
       const deleteBtn = document.createElement("button");
-      deleteBtn.className = "flex items-center p-4 ";
+      deleteBtn.className = "flex items-center";
 
       // 아이콘 생성
       const icon = document.createElement("i");
