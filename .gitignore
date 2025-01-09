@@ -1,8 +1,5 @@
 # Node.js modules
 node_modules/
 
-# Tailwind 빌드 파일
-dist/
-
 # macOS 시스템 파일
 .DS_Store
