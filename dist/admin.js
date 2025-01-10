@@ -59,6 +59,7 @@ const templateNameInput = document.getElementById("templateName");
 const templateContentInput = document.getElementById("templateContent");
 const saveTemplateBtn = document.getElementById("saveTemplateBtn");
 const cancelTemplateBtn = document.getElementById("cancelTemplateBtn");
+const modalBg = document.getElementById("templateModal");
 
 const openModal = () => {
   modal.classList.remove("hidden");
@@ -70,8 +71,16 @@ const closeModal = () => {
   templateContentInput.value = "";
 };
 
+// 배경 클릭 시 닫기
+modal.addEventListener("click", (event) => {
+  if (event.target === modal) {
+    closeModal();
+  }
+});
+
 document.getElementById("addTemplateBtn").addEventListener("click", openModal);
 
+// 취소 버튼 클릭시 닫기
 cancelTemplateBtn.addEventListener("click", closeModal);
 
 saveTemplateBtn.addEventListener("click", () => {
