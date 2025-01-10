@@ -38,7 +38,9 @@ export const addData = (storeName, data) => {
     store.add(data);
 
     transaction.oncomplete = () => {
-      console.log("데이터 추가 성공:", data);
+      if (process.env.NODE_ENV === "development") {
+        console.log("데이터 추가 성공:", data);
+      }
     };
 
     transaction.onerror = (event) => {
@@ -79,7 +81,9 @@ export const deleteData = (storeName, id) => {
     store.delete(id);
 
     transaction.oncomplete = () => {
-      console.log("데이터 삭제 성공", id);
+      if (process.env.NODE_ENV === "development") {
+        console.log("데이터 추가 성공:", data);
+      }
     };
 
     transaction.onerror = (event) => {
