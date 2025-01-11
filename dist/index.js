@@ -40,7 +40,7 @@ document.getElementById("copyBtn").addEventListener("click", () => {
   const instructorsSelect = document.getElementById("instructorsSelect").value;
   const lessonPoints = document.getElementById("lessonPoints").value;
 
-  const textToCopy = `담당 프로: ${instructorsSelect}\n레슨포인트 :\n${lessonPoints}`;
+  const textToCopy = `담당 프로: ${instructorsSelect}\n[레슨포인트]\n${lessonPoints}`;
   navigator.clipboard.writeText(textToCopy).then(() => {
     alert("복사되었습니다!");
   });
@@ -49,8 +49,17 @@ document.getElementById("copyBtn").addEventListener("click", () => {
 // 초기화 이벤트 로직
 document.getElementById("clearBtn").addEventListener("click", () => {
   if (confirm("내용을 초기화하시겠습니까?")) {
+    // 현재 선택된 템플릿 값 가져오기
+    const templateSelect = document.getElementById("templateSelect");
+    const seletedTemplate = templateSelect.value;
+
     document.getElementById("lessonPoints").value = "";
     document.getElementById("instructorsSelect").selectedIndex = 0;
+
+    // 현재 선택된 템플릿이 있다면 가져오기
+    if (seletedTemplate) {
+      document.getElementById("lessonPoints").value = seletedTemplate;
+    }
   }
 });
 
