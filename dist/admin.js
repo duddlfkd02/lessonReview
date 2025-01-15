@@ -1,4 +1,10 @@
-import { initDB, addData, getAllData, deleteData } from "./indexedDB.js";
+import {
+  initDB,
+  addData,
+  getAllData,
+  deleteData,
+  updateData,
+} from "./indexedDB.js";
 
 initDB();
 
@@ -59,7 +65,10 @@ const templateNameInput = document.getElementById("templateName");
 const templateContentInput = document.getElementById("templateContent");
 const saveTemplateBtn = document.getElementById("saveTemplateBtn");
 const cancelTemplateBtn = document.getElementById("cancelTemplateBtn");
-const modalBg = document.getElementById("templateModal");
+
+// 모달 플래그
+let isEditMode = false;
+let currentEditingTemplateId = null; // 수정할 템플릿 ID 저장
 
 const openModal = () => {
   modal.classList.remove("hidden");
@@ -69,6 +78,24 @@ const closeModal = () => {
   modal.classList.add("hidden");
   templateNameInput.value = "";
   templateContentInput.value = "";
+};
+
+// 템플릿 새로 추가할 때 모달
+const openAddModal = () => {
+  isEditMode = false;
+  currentEditingTemplateId = null; // 기존 수정 id 초기화
+  templateNameInput.value = "";
+  templateContentInput.value = "";
+  openModal();
+};
+
+// 템플릿 수정할 때 모달
+const openEditModal = (template) => {
+  isEditMode = true;
+  currentEditingTemplateId = template.id; // 기존 수정 id 초기화
+  templateNameInput.value = template.templateName;
+  templateContentInput.value = template.content;
+  openModal();
 };
 
 // 배경 클릭 시 닫기
@@ -83,58 +110,94 @@ document.getElementById("addTemplateBtn").addEventListener("click", openModal);
 // 취소 버튼 클릭시 닫기
 cancelTemplateBtn.addEventListener("click", closeModal);
 
+// 저장 버튼 클릭 시 수정 데이터 처리
 saveTemplateBtn.addEventListener("click", () => {
+  saveTemplateBtn.disabled = true;
   const templateName = templateNameInput.value.trim();
-  const content = templateContentInput.value.trim();
+  const templateContent = templateContentInput.value.trim();
 
-  if (!templateName || !content) {
-    alert("모든 내용이 입력되었는지 확인해주세요!");
+  if (!templateContent || !templateContent) {
+    alert("모든 내용을 입력해주세요!");
+    saveTemplateBtn.disabled = false;
     return;
   }
 
-  addData("templates", { templateName, content });
-  alert("템플릿이 추가되었습니다.");
+  if (isEditMode) {
+    // 수정 모드
+    updateData("templates", {
+      id: currentEditingTemplateId,
+      templateName,
+      content: templateContent,
+    });
+    alert("템플릿이 수정되었습니다!");
+  } else {
+    // 추가 모드: 새 템플릿 추가
+    addData("templates", { templateName, content: templateContent });
+    alert("새 템플릿이 추가되었습니다!");
+  }
   closeModal();
   refreshTemplateList();
+  saveTemplateBtn.disabled = false;
 });
+
+// "템플릿 추가" 버튼 이벤트
+document
+  .getElementById("addTemplateBtn")
+  .addEventListener("click", openAddModal);
 
 const refreshTemplateList = () => {
   getAllData("templates", (data) => {
     templateList.innerHTML = "";
     data.forEach((template) => {
       const li = document.createElement("li");
-      li.className =
-        "flex items-center justify-between p-6 mb-6 bg-gray-50  rounded-lg border";
+      li.className = "flex items-center p-6 mb-6 bg-gray-50 rounded-lg border";
 
       // 템플릿 제목과 내용
       const contentDiv = document.createElement("div");
-      contentDiv.className = "text-left";
+      contentDiv.className = "flex-1 text-left";
       contentDiv.innerHTML = `
         <div class="text-sm font-bold text-gray-700">${template.templateName}</div>
         <div class="text-sm text-gray-600 mt-1">${template.content}</div>
       `;
 
+      // 버튼 컨테이너
+      const buttonContainer = document.createElement("div");
+      buttonContainer.className = "flex items-center space-x-4";
+
+      // 수정 버튼
+      const editBtn = document.createElement("button");
+      editBtn.className = "flex items-center";
+
+      const editIcon = document.createElement("i");
+      editIcon.className = "fa-regular fa-pen-to-square";
+      editIcon.style.color = "#000000";
+
+      editBtn.appendChild(editIcon);
+      editBtn.addEventListener("click", () => {
+        openEditModal(template);
+      });
+
       // 삭제 버튼
       const deleteBtn = document.createElement("button");
       deleteBtn.className = "flex items-center";
 
-      // 아이콘 생성
-      const icon = document.createElement("i");
-      icon.className = "fa-regular fa-circle-xmark";
-      icon.style.color = "#000000";
+      const deleteIcon = document.createElement("i");
+      deleteIcon.className = "fa-regular fa-circle-xmark";
+      deleteIcon.style.color = "#000000";
 
-      // 아이콘과 텍스트 추가
-      deleteBtn.appendChild(icon);
-
-      // 클릭 이벤트 추가
+      deleteBtn.appendChild(deleteIcon);
       deleteBtn.addEventListener("click", () => {
         deleteData("templates", template.id);
         refreshTemplateList();
       });
 
-      // li 내부 요소 추가
+      // 버튼 컨테이너에 버튼 추가
+      buttonContainer.appendChild(editBtn);
+      buttonContainer.appendChild(deleteBtn);
+
+      // li 내부에 내용과 버튼 컨테이너 추가
       li.appendChild(contentDiv);
-      li.appendChild(deleteBtn);
+      li.appendChild(buttonContainer);
       templateList.appendChild(li);
     });
   });

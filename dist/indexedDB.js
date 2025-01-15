@@ -93,3 +93,28 @@ export const deleteData = (storeName, id) => {
     };
   };
 };
+
+// 템플릿 데이터 수정
+export const updateData = (storeName, updateData) => {
+  const dbRequest = indexedDB.open(dbName);
+
+  dbRequest.onsuccess = (event) => {
+    const db = event.target.result;
+    const transaction = db.transaction(storeName, "readwrite");
+    const store = transaction.objectStore(storeName);
+
+    // 데이터 id 기준으로 수정하기
+    store.put(updateData);
+
+    transaction.oncomplete = () => {
+      /*
+        로그 삭제
+        console.log("수정 성공!", updateData);
+      */
+    };
+
+    transaction.onerror = (event) => {
+      console.log("수정 실패", event.target.error);
+    };
+  };
+};
