@@ -42,25 +42,55 @@ document.getElementById("copyBtn").addEventListener("click", () => {
 
   const textToCopy = `담당 프로: ${instructorsSelect}\n[레슨포인트]\n${lessonPoints}`;
   navigator.clipboard.writeText(textToCopy).then(() => {
-    alert("복사되었습니다!");
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "success",
+      title: "SUCCESS!",
+      text: "클립보드에 복사되었습니다.",
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      background: "#fff",
+    });
   });
 });
 
 // 초기화 이벤트 로직
 document.getElementById("clearBtn").addEventListener("click", () => {
-  if (confirm("내용을 초기화하시겠습니까?")) {
-    // 현재 선택된 템플릿 값 가져오기
-    const templateSelect = document.getElementById("templateSelect");
-    const seletedTemplate = templateSelect.value;
+  Swal.fire({
+    title: "내용을 초기화하시겠습니까?",
+    text: "현재 입력된 내용이 삭제됩니다.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "초기화하기",
+    cancelButtonText: "취소하기",
+    confirmButtonColor: "#000",
+    cancelButtonColor: "#808080",
+    customClass: {
+      confirmButton:
+        "bg-black text-white px-6 py-3  rounded-full hover:bg-gray-900",
+      cancelButton:
+        "bg-gray-100 text-gray-800 px-6 py-3  rounded-full hover:bg-gray-200",
+      popup: "rounded-lg",
+      actions: "flex justify-center space-x-4",
+    },
+    buttonsStyling: false,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // 현재 선택된 템플릿 값 가져오기
+      const templateSelect = document.getElementById("templateSelect");
+      const selectedTemplate = templateSelect.value;
 
-    document.getElementById("lessonPoints").value = "";
-    document.getElementById("instructorsSelect").selectedIndex = 0;
+      document.getElementById("lessonPoints").value = "";
+      document.getElementById("instructorsSelect").selectedIndex = 0;
 
-    // 현재 선택된 템플릿이 있다면 가져오기
-    if (seletedTemplate) {
-      document.getElementById("lessonPoints").value = seletedTemplate;
+      // 현재 선택된 템플릿이 있다면 가져오기
+      if (selectedTemplate) {
+        document.getElementById("lessonPoints").value = selectedTemplate;
+      }
     }
-  }
+  });
 });
 
 // 초기 로드

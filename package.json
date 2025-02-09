@@ -4,5 +4,8 @@
   },
   "scripts": {
     "build": "npx tailwindcss -i ./src/tailwind.css -o ./dist/output.css && node copy-html.js"
+  },
+  "dependencies": {
+    "sweetalert2": "^11.16.0"
   }
 }

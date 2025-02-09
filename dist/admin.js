@@ -12,11 +12,41 @@ initDB();
 const instructorList = document.getElementById("instructorList");
 const addInstructorBtn = document.getElementById("addInstructorBtn");
 
-addInstructorBtn.addEventListener("click", () => {
-  const name = prompt("추가할 이름을 입력하세요");
+addInstructorBtn.addEventListener("click", async () => {
+  const { value: name } = await Swal.fire({
+    title: "이름 입력",
+    input: "text",
+    inputPlaceholder: "추가할 이름을 입력하세요",
+    showCancelButton: true,
+    confirmButtonText: "추가하기",
+    cancelButtonText: "취소",
+    inputValidator: (value) => {
+      if (!value.trim()) {
+        return "이름을 입력해주세요!";
+      }
+    },
+    customClass: {
+      confirmButton:
+        "bg-black text-white px-6 py-3  rounded-full hover:bg-gray-900",
+      cancelButton:
+        "bg-gray-100 text-gray-800 px-6 py-3  rounded-full hover:bg-gray-200",
+      popup: "rounded-lg",
+      actions: "flex justify-center space-x-4",
+    },
+    buttonsStyling: false,
+  });
   if (name) {
     addData("instructors", { name });
-    alert("추가 완료되었습니다.");
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "success",
+      title: "추가 완료!",
+      text: "이름이 추가되었습니다.",
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+    });
     refreshInstructorList();
   }
 });
@@ -117,7 +147,16 @@ saveTemplateBtn.addEventListener("click", () => {
   const templateContent = templateContentInput.value.trim();
 
   if (!templateContent || !templateContent) {
-    alert("모든 내용을 입력해주세요!");
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "warning",
+      text: "모든 내용을 입력해주세요!",
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      background: "#fff",
+    });
     saveTemplateBtn.disabled = false;
     return;
   }
@@ -129,11 +168,31 @@ saveTemplateBtn.addEventListener("click", () => {
       templateName,
       content: templateContent,
     });
-    alert("템플릿이 수정되었습니다!");
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "success",
+      title: "UPDATE!",
+      text: "템플릿이 수정되었습니다!",
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      background: "#fff",
+    });
   } else {
     // 추가 모드: 새 템플릿 추가
     addData("templates", { templateName, content: templateContent });
-    alert("새 템플릿이 추가되었습니다!");
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "success",
+      title: "SUCCESS!",
+      text: "새 템플릿이 추가되었습니다!",
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      background: "#fff",
+    });
   }
   closeModal();
   refreshTemplateList();
